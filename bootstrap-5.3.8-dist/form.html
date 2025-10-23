@@ -1,51 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ser Mulher - Projeto Interdisciplinar</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <div class="container py-5 d-flex justify-content-center align-items-center min-vh-100">
-        <div id="checklist-container" class="p-4 rounded shadow text-center">
-            <h2 class="mb-4">Checklist das Tarefas</h2>
 
-            <input type="text" id="username" placeholder="Digite seu nome" class="form-control mb-3">
-
-            <div class="gender-select mb-3">
-                <input type="radio" name="gender" id="homem" value="homem">
-                <label for="homem">Homem</label>
-                <input type="radio" name="gender" id="mulher" value="mulher">
-                <label for="mulher">Mulher</label>
-            </div>
-
-            <div id="genderAnimation" class="mb-3">
-                <img src="https://i.ibb.co/1f8yG5K/boy-animated.gif" alt="Homem" style="width:100px;">
-            </div>
-
-            <div id="tasks" class="tasks mb-3"></div>
-
-            <button id="submitBtn" class="btn btn-primary">Ver Resultado</button>
-        </div>
+    <h1>Checklist Divertido 🎮</h1>
+    <div class="gender-selection">
+        <label><input type="radio" name="gender" value="homem"> Homem</label>
+        <label><input type="radio" name="gender" value="mulher"> Mulher</label>
     </div>
+    <div id="checklist-container"></div>
+    <button id="submitBtn">Ver Resultado 🎯</button>
 
     <!-- Modal -->
-    <div class="modal fade" id="resultModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Resultado do Checklist</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="modalBody"></div>
-            </div>
+    <div id="modal">
+        <div id="modalContent">
+            <h2>🎉 Parabéns! 🎉</h2>
+            <p id="modalBody"></p>
+            <button id="closeModal">Fechar ❌</button>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
+
 </html>
