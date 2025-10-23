@@ -45,16 +45,32 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
 
-    // Calculate scroll position to center the active card
-    const cardWidth = cards[0].offsetWidth
-    const gap = 32 // 2rem gap
-    const scrollPosition = currentIndex * (cardWidth + gap) - carousel.offsetWidth / 2 + cardWidth / 2
-    carousel.scrollTo({
-      left: scrollPosition,
-      behavior: "smooth",
-    })
-  }
+    // --- Início da correção ---
+    // Recalcula a posição de scroll para garantir que todos os cards sejam visíveis
+    if (cards.length > 0) {
+        const cardWidth = cards[0].offsetWidth; // Largura de um card
+        const gap = 32; // Seu gap de 2rem = 32px
 
+        // Calcula a largura total de todos os cards e gaps até o card atual
+        // e subtrai metade da largura do carrossel para centralizar o card atual.
+        // Adiciona metade da largura do card atual para centralizá-lo.
+        let scrollPosition = currentIndex * (cardWidth + gap);
+
+        // Ajusta para centralizar o card atual na viewport do carrossel.
+        // Isso é crucial para que o primeiro e o último card também apareçam corretamente.
+        scrollPosition -= (carousel.offsetWidth / 2) - (cardWidth / 2);
+
+        // Garante que o scroll não vá além do início (0) e nem além do final do conteúdo.
+        const maxScrollLeft = carousel.scrollWidth - carousel.offsetWidth;
+        scrollPosition = Math.max(0, Math.min(scrollPosition, maxScrollLeft));
+
+        carousel.scrollTo({
+            left: scrollPosition,
+            behavior: "smooth",
+        });
+    }
+    // --- Fim da correção ---
+  }
   function goToSlide(index) {
     currentIndex = index
     updateCarousel()
@@ -130,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const questionText = document.getElementById("questionText")
   const quizOptions = document.getElementById("quizOptions")
-  const nextBtnQuiz = document.getElementById("nextBtn") // Renamed to avoid conflict with carousel nextBtn
+  const nextBtnQuiz = document.getElementById("nextQuestionBtn")// Renamed to avoid conflict with carousel nextBtn
   const restartBtn = document.getElementById("restartBtn")
   const progressBar = document.getElementById("progressBar")
   const currentQuestionSpan = document.getElementById("currentQuestion")
