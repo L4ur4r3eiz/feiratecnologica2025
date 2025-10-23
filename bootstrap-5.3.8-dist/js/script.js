@@ -282,3 +282,77 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 })
+
+// Mural e Checklist
+
+// -------------------- CHECKLIST --------------------
+const tasks = [
+  "Preparar café da manhã","Organizar a casa","Lavar roupas","Passar roupas",
+  "Preparar almoço","Acompanhar deveres escolares","Levar/Buscar filhos na escola",
+  "Comprar mantimentos","Pagar contas","Administrar finanças da casa","Trabalhar fora",
+  "Trabalhar home office","Cuidar da saúde mental","Planejar atividades familiares",
+  "Organizar eventos sociais","Limpeza do banheiro","Cuidar de parentes idosos"
+];
+
+const tasksContainer = document.getElementById("tasks");
+if(tasksContainer){
+  tasks.forEach((task, i) => {
+    const div = document.createElement("div");
+    div.classList.add("form-check");
+    div.innerHTML = `<input class="form-check-input task-checkbox" type="checkbox" value="" id="task${i}">
+                     <label class="form-check-label" for="task${i}">${task}</label>`;
+    tasksContainer.appendChild(div);
+  });
+
+  document.getElementById("submitBtn").addEventListener("click", () => {
+    const username = document.getElementById("username").value || "Usuário";
+    const gender = document.querySelector('input[name="gender"]:checked')?.value;
+    if (!gender) { alert("Selecione o gênero."); return; }
+
+    const checkboxes = document.querySelectorAll(".task-checkbox");
+    let count = 0;
+    checkboxes.forEach(cb => { if(cb.checked) count++; });
+
+    const color = gender === "homem" ? "#FFF9C4" : "#E1BEE7"; // amarelo ou lilás
+    document.getElementById("checklist-container").style.backgroundColor = color;
+
+    document.getElementById("modalBody").innerHTML = `
+      <p>Nome: <strong>${username}</strong></p>
+      <p>Tarefas marcadas: <strong>${count}</strong> de ${tasks.length}</p>
+    `;
+    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+    resultModal.show();
+  });
+}
+
+// -------------------- MURAL --------------------
+const postBtn = document.getElementById("postBtn");
+if(postBtn){
+  const postText = document.getElementById("postText");
+  const muralPosts = document.getElementById("muralPosts");
+
+  postBtn.addEventListener("click", () => {
+    if(!postText.value) return;
+
+    const card = document.createElement("div");
+    card.classList.add("card", "mb-3");
+    card.style.backgroundColor = `hsl(${Math.random()*360}, 70%, 80%)`;
+    card.innerHTML = `
+      <div class="card-body">
+        <p class="card-text">${postText.value}</p>
+        <button class="btn btn-outline-primary btn-sm like-btn">Curtir ❤️</button>
+        <span class="ms-2 like-count">0</span>
+      </div>
+    `;
+    muralPosts.prepend(card);
+    postText.value = "";
+
+    const likeBtn = card.querySelector(".like-btn");
+    const likeCount = card.querySelector(".like-count");
+    let count = 0;
+    likeBtn.addEventListener("click", () => {
+      count++;
+      likeCount.textContent = count;
+    });
+  });
+}
