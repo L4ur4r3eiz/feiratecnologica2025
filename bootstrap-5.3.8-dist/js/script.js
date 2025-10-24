@@ -297,9 +297,9 @@ submitBtn.addEventListener('click', () => {
   if(gender==='homem'){
     if(completed<5) message="🤔 Poucas tarefas realizadas! Que tal refletir sobre o quanto as responsabilidades são compartilhadas?";
     else if(completed<10) message="👏 Boa tentativa! Dividir mais tarefas ajuda a equilibrar a rotina familiar.";
-    else message="💪 Excelente! Você está contribuindo bastante — continue valorizando o cuidado e a parceria.";
+    else message="💪 Excelente! Sua dedicação é inspiradora e você está contribuindo bastante — continue valorizando o cuidado e a parceria.";
   } else {
-    if(completed<5) message="😔 Parece que você anda sobrecarregada. Lembre-se de descansar e pedir ajuda.";
+    if(completed<5) message="🤔 Poucas tarefas realizadas! Que tal refletir sobre o quanto as responsabilidades são compartilhadas?";
     else if(completed<10) message="💖 Você está fazendo muito! Procure equilibrar responsabilidades sem se cobrar demais.";
     else message="🌟 Incrível! Sua dedicação é inspiradora, mas reserve tempo para si mesma também.";
   }
@@ -310,9 +310,6 @@ submitBtn.addEventListener('click', () => {
 
   new bootstrap.Modal(document.getElementById('resultModal')).show();
 });
-
-
-
 
 
 });
@@ -406,3 +403,123 @@ function startResponseRotation() {
 
 // Inicia a rotação ao carregar a página
 window.addEventListener('DOMContentLoaded', startResponseRotation);
+
+
+
+// ===================== MURAL DINÂMICO =====================
+document.addEventListener("DOMContentLoaded", () => {
+  const postText = document.getElementById("postText");
+  const postBtn = document.getElementById("postBtn");
+  const muralPosts = document.getElementById("muralPosts");
+
+  if (!postText || !postBtn || !muralPosts) return;
+
+  let posts = JSON.parse(localStorage.getItem("muralPosts")) || [];
+
+  function renderPosts() {
+    muralPosts.innerHTML = "";
+    posts.forEach((post, index) => {
+      const card = document.createElement("div");
+      card.classList.add("col-12", "col-md-6", "col-lg-4");
+
+      card.innerHTML = `
+        <div class="mural-post" data-index="${index}">
+          <p class="mural-text">${post.text}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <small class="text-muted">${post.date}</small>
+            <div>
+              <button class="like-btn"><i class="fa-solid fa-heart${post.liked ? ' text-danger' : ''}"></i></button>
+              <span class="like-count">${post.likes}</span>
+            </div>
+          </div>
+        </div>
+      `;
+      muralPosts.appendChild(card);
+    });
+  }
+
+  function savePosts() {
+    localStorage.setItem("muralPosts", JSON.stringify(posts));
+  }
+
+  postBtn.addEventListener("click", () => {
+    const text = postText.value.trim();
+    if (!text) return alert("Escreva algo antes de publicar 💬");
+
+    const newPost = {
+      text,
+      date: new Date().toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }),
+      likes: 0,
+      liked: false,
+    };
+
+    posts.unshift(newPost);
+    savePosts();
+    renderPosts();
+    postText.value = "";
+  });
+
+  muralPosts.addEventListener("click", (e) => {
+    const btn = e.target.closest(".like-btn");
+    if (!btn) return;
+    const card = btn.closest(".mural-post");
+    const index = parseInt(card.dataset.index);
+
+    posts[index].liked = !posts[index].liked;
+    posts[index].likes += posts[index].liked ? 1 : -1;
+    savePosts();
+    renderPosts();
+  });
+
+  renderPosts();
+
+  function renderPosts() {
+  muralPosts.innerHTML = "";
+  posts.forEach((post, index) => {
+    const card = document.createElement("div");
+    card.classList.add("col-12", "col-md-6", "col-lg-4");
+
+    // Escolhe uma cor de fundo aleatória para o post
+    const colors = ["color1", "color2", "color3", "color4", "color5"];
+    const colorClass = colors[index % colors.length];
+
+    card.innerHTML = `
+      <div class="mural-post ${colorClass}" data-index="${index}">
+        <p class="mural-text">${post.text}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">${post.date}</small>
+          <div>
+            <button class="like-btn"><i class="fa-solid fa-heart${post.liked ? ' text-danger' : ''}"></i></button>
+            <span class="like-count">${post.likes}</span>
+          </div>
+        </div>
+      </div>
+    `;
+    muralPosts.appendChild(card);
+  });
+}
+
+// Animação de brilho ao curtir
+muralPosts.addEventListener("click", (e) => {
+  const btn = e.target.closest(".like-btn");
+  if (!btn) return;
+  const card = btn.closest(".mural-post");
+  const index = parseInt(card.dataset.index);
+
+  posts[index].liked = !posts[index].liked;
+  posts[index].likes += posts[index].liked ? 1 : -1;
+  savePosts();
+  renderPosts();
+
+  // Efeito de brilho rápido no coração
+  const icon = btn.querySelector("i");
+  icon.classList.add("glowing");
+  setTimeout(() => icon.classList.remove("glowing"), 600);
+});
+
+
+});
