@@ -19,6 +19,16 @@ body {
   overflow-x: hidden;
 }
 
+.custom-hr {
+  border: 0;
+  height: 5px;
+  border-radius: 50px;
+  background: linear-gradient(90deg, #8b7fd9, #cbb4ff, #8b7fd9);
+  opacity: 1;
+  width: 95%;
+  margin: 0 auto;
+}
+
 h1,
 h2,
 h3,
@@ -53,9 +63,23 @@ h6 {
 /* Hero Section */
 .hero-section {
   padding: 120px 0 80px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   position: relative;
   overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #8b7fd9,
+    #cbb4ff,
+    #f7a8c6,
+    #fef6a0
+  );
+  background-size: 300% 300%;
+  animation: gradientMove 5s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .hero-image {
@@ -134,15 +158,12 @@ h6 {
 }
 
 .narrative-card.large-card {
-  min-height: 400px;
+  min-height: 200px;
 }
 
 .profile-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  max-width: 100px;
   object-fit: cover;
-  border: 4px solid var(--secondary-color);
 }
 
 .profile-img-small {
@@ -152,6 +173,15 @@ h6 {
   object-fit: cover;
   border: 3px solid var(--secondary-color);
 }
+
+#response-text-7 {
+  font-size: 1.2rem;
+}
+
+.narrative-card.large-card:last-child h5 {
+  font-size: 1.5rem;
+}
+
 
 /* Filhos do Quarto Section */
 .filhos-section {
@@ -250,18 +280,20 @@ h6 {
   background: white;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 6px 6px 0 #8b7fd9;
+  max-width: 300px;
+  margin: 0 auto;
   transition: all 0.3s ease;
 }
 
 .mentora-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(139, 127, 217, 0.2);
+  box-shadow: 0 20px 40px #6f42c1;
 }
 
 .mentora-img {
   width: 100%;
-  height: 300px;
+  height: 250px;
   object-fit: cover;
 }
 
