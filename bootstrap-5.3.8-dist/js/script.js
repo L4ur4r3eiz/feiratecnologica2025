@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cards = document.querySelectorAll(".participant-card");
 
   if (carousel && prevBtn && nextBtnCarousel && indicatorsContainer && cards.length > 0) {
-    let currentIndex = 2;
+    let currentIndex = 0;
     const totalCards = cards.length;
 
     // Cria indicadores
