@@ -309,44 +309,44 @@ h6 {
 
 .carousel-container {
   position: relative;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 0 80px;
 }
 
 .participants-carousel {
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  overflow: hidden;
-  padding: 2rem 0;
   justify-content: center;
   align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  overflow: visible;
+  flex-wrap: nowrap;
 }
 
 .participant-card {
   background: linear-gradient(135deg, #e8e5f5 0%, #c4bee8 100%);
   border-radius: 20px;
-  padding: 2rem;
+  padding: 1.5rem;
   text-align: center;
-  min-width: 300px;
-  max-width: 300px;
+  width: 250px;
   transition: all 0.5s ease;
   opacity: 0.6;
-  transform: scale(0.85);
+  transform: scale(0.9);
+  display: block;
 }
 
 .participant-card.active {
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
   color: white;
   opacity: 1;
-  transform: scale(1);
-  box-shadow: 0 20px 60px rgba(139, 127, 217, 0.4);
+  transform: scale(1.05);
+  box-shadow: 0 15px 40px rgba(139, 127, 217, 0.4);
 }
 
 .participant-img {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid white;
@@ -354,21 +354,21 @@ h6 {
 }
 
 .participant-bio {
-  font-size: 0.9rem;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  line-height: 1.4;
   margin: 1rem 0;
 }
 
 .social-icons {
   display: flex;
-  gap: 1rem;
+  gap: 0.8rem;
   justify-content: center;
   margin-top: 1rem;
 }
 
 .social-link {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   display: flex;
